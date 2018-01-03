@@ -1,0 +1,36 @@
+#coding=utf-8
+from gensim.models import word2vec
+from gensim.models.word2vec import LineSentence
+from gensim.models.keyedvectors import KeyedVectors
+import numpy as np
+#sentences=LineSentence('/home/jinguo/code/10w_content_seg')
+# sentences=word2vec.Text8Corpus(u'/home/jinguo/code/10w_seg_content_1019')
+# model=word2vec.Word2Vec(sentences,size=200,window=6,min_count=10)
+# model.wv.save_word2vec_format('./word2vec_model')
+
+model=KeyedVectors.load_word2vec_format('./word2vec_model')
+# for key in model.vocab.keys():
+#     print key
+#print model.vocab.keys()
+text=u'暧昧 张杰 扶贫办 根据 谢娜 眼睛'
+text_list=text.split()
+sen_matrix=np.zeros(50)
+print sen_matrix
+# print text_list
+word_count=0
+for word in text_list:
+    if word.strip() in model.vocab.keys():
+        sen_matrix+=model[word]
+        word_count+=1
+        #print word,model[word],type(model[word])
+    else:
+        print 'not in vocab'
+print sen_matrix,word_count
+print sen_matrix/word_count
+print model.similarity(u'暧昧',u'张杰')
+print model.similarity(u'谢娜',u'张杰')
+# m1=model[u'暧昧']
+# m2=model[u'张杰']
+# sen_matrix=m1+m2
+# print len(m1)
+#print sen_matrix, (m1+m2)/2
