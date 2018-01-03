@@ -1,0 +1,3 @@
+# word2vec_sentense_similar
+利用gensim训练word2vec model
+利用词向量平均获取句向量，求两个句子的相似度
